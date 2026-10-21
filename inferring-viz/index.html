@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>InferRing – Distributed Inference for Macs</title>
+<style>
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background: #0a0a0a; color: #f5f5f7; margin: 0; padding: 20px; }
+.gate { position: fixed; inset: 0; background: #000; display: flex; align-items: center; justify-content: center; z-index: 100; }
+.gate form { background: #1c1c1e; padding: 40px; border-radius: 20px; text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
+input, button { padding: 12px 20px; border-radius: 10px; border: none; font-size: 16px; margin: 10px; }
+button { background: #0071e3; color: white; cursor: pointer; }
+.content { display: none; max-width: 1100px; margin: 0 auto; }
+h1 { font-size: 3rem; font-weight: 600; letter-spacing: -1px; }
+h2 { color: #86868b; font-weight: 500; }
+.diagram { margin: 40px 0; text-align: center; }
+.node { fill: #1c1c1e; stroke: #0071e3; stroke-width: 2; }
+.link { stroke: #34c759; stroke-width: 2; }
+.section { background: #1c1c1e; border-radius: 16px; padding: 24px; margin: 20px 0; }
+</style>
+</head>
+<body>
+<div class="gate" id="gate">
+  <form onsubmit="checkPass(event)">
+    <h2>InferRing</h2>
+    <p>Password required for friend preview</p>
+    <input type="password" id="pw" placeholder="Password" autofocus>
+    <br>
+    <button type="submit">Enter</button>
+  </form>
+</div>
+<div class="content" id="content">
+  <h1>InferRing</h1>
+  <h2>Distributed Inference Fabric for Apple Silicon Macs</h2>
+  <p>Secure peer mesh that turns home and office Macs into a private, low-latency inference cluster. Reduce token spend, keep data local, leverage native hardware.</p>
+  
+  <div class="diagram">
+    <svg width="800" height="400" viewBox="0 0 800 400">
+      <circle class="node" cx="200" cy="100" r="40"/>
+      <text x="200" y="105" text-anchor="middle" fill="white" font-size="12">Mac 1</text>
+      <circle class="node" cx="600" cy="100" r="40"/>
+      <text x="600" y="105" text-anchor="middle" fill="white" font-size="12">Mac 2</text>
+      <circle class="node" cx="200" cy="300" r="40"/>
+      <text x="200" y="305" text-anchor="middle" fill="white" font-size="12">Mac 3</text>
+      <circle class="node" cx="600" cy="300" r="40"/>
+      <text x="600" y="305" text-anchor="middle" fill="white" font-size="12">Mac 4</text>
+      <line class="link" x1="240" y1="100" x2="560" y2="100"/>
+      <line class="link" x1="200" y1="140" x2="200" y2="260"/>
+      <line class="link" x1="600" y1="140" x2="600" y2="260"/>
+      <line class="link" x1="240" y1="300" x2="560" y2="300"/>
+      <circle cx="400" cy="200" r="30" fill="#0071e3"/>
+      <text x="400" y="205" text-anchor="middle" fill="white" font-size="10">Scheduler</text>
+    </svg>
+    <p>Peers register with signed capability ads (NTP-like). Master distributes inference work. Isolation via Apple Containers. RDMA/TB5 for large models.</p>
+  </div>
+
+  <div class="section">
+    <h3>Secure Peering & Identity</h3>
+    <p>Bonjour discovery + Ed25519/Secure Enclave identities. Mutual mTLS. Capability advertisements: memory, chip, models, load, power state.</p>
+  </div>
+  <div class="section">
+    <h3>Distributed Scheduling</h3>
+    <p>Condor ClassAd-inspired matchmaking + Minions pull-based opportunistic scavenging. Watchdog for sleep/failure. Workers can spill to external.</p>
+  </div>
+  <div class="section">
+    <h3>Native Execution & Ring-Fence</h3>
+    <p>MLX / exo for Apple Silicon. Apple Container micro-VMs for isolation (with vsock MLX bridge ~95% perf). Dedicated users, resource limits.</p>
+  </div>
+  <div class="section">
+    <h3>Enterprise Play</h3>
+    <p>Replace thin clients with Macs that provide local distributed inference. MDM + Apple Business Manager. Data residency, lower latency, zero external tokens for routine work. Scales with M5 Pro fleets.</p>
+  </div>
+</div>
+<script>
+function checkPass(e) {
+  e.preventDefault();
+  if (document.getElementById('pw').value === 'macmesh2026') {
+    document.getElementById('gate').style.display = 'none';
+    document.getElementById('content').style.display = 'block';
+  } else {
+    alert('Incorrect password');
+  }
+}
+</script>
+</body>
+</html>
